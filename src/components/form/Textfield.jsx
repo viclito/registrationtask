@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material'
 import React from 'react'
 
-const Textfield = ({value , handleChange , name , label , helperText , width}) => {
+const Textfield = ({value , handleChange , name , label , helperText , width , type }) => {
   return (
     <>
         <TextField
@@ -10,8 +10,9 @@ const Textfield = ({value , handleChange , name , label , helperText , width}) =
             name={name}
             value={value}
             onChange={handleChange}
+            type={type? type :'text'}
             // size='small'
-            sx={{fontSize:'12px' , width:width ,mb:2 ,'& .MuiOutlinedInput-input':{padding:' 12px 14px'}}}
+            sx={{fontSize:'12px' , width:width ,mb:2  ,'& .MuiOutlinedInput-input':{padding:' 12px 14px' } }}
             InputLabelProps={{
                 sx:{fontSize:'14px', color:'#1976d2' , fontWeight:500}
             }}

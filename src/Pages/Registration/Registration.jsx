@@ -3,6 +3,7 @@ import Layout from '../../components/Layout'
 import { Box, Button, Checkbox, FormControlLabel, IconButton, MenuItem, TextField, Typography } from '@mui/material'
 import Textfield from '../../components/form/Textfield';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 
 const Registration = () => {
 
@@ -31,7 +32,8 @@ const Registration = () => {
         name :'' ,
         place :'',
         designation :'',
-        consent:''
+        consent:'',
+        uploadFile: null,
       });
 
       
@@ -65,10 +67,10 @@ const Registration = () => {
       };
     
       const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, type, files } = e.target;
         setFormData({
           ...formData,
-          [name]: value,
+          [name]: type === 'file' ? files[0] : value,
         });
       };
 
@@ -272,7 +274,7 @@ const Registration = () => {
                             required
                             type='text'
                             fullWidth
-                            sx={{
+                            sx={{mb:2 , 
                             '& .MuiInputBase-input': { fontSize: '14px' },
                             '& .MuiOutlinedInput-input':{padding:' 12px 14px'}
                             }}
@@ -284,6 +286,25 @@ const Registration = () => {
                             <MenuItem value='Obtained via call'>Obtained via call</MenuItem>
                             <MenuItem value='Obtained via email'>Obtained via email</MenuItem>
                         </TextField>
+                        {formData.consent === 'Obtained via email' &&
+                        <Box sx={{ borderRadius:1 , position:'relative'}} >
+                            <TextField
+                                
+                                name="uploadFile"
+                                
+                                onChange={handleChange}
+                                type="file"
+                                // size='small'
+                                sx={{fontSize:'12px' , width:"100%" ,mb:2  ,'& .MuiOutlinedInput-input':{padding:' 12px 14px' , opacity: 0} }}
+                                
+                            />
+                                <Box sx={{display:'flex' , justifyContent:'space-between' , alignItems:'center' , width:'100%', position:'absolute' , pointerEvents:'none' , px:2 , top:'3px'}}>
+                                    <Typography variant='subtitle2' sx={{fontWeight:400 }}>Consent Obtained Proof</Typography>
+                                    <IconButton sx={{ pointerEvents:'none'}} disableRipple>
+                                        <AttachFileIcon />
+                                    </IconButton>
+                                </Box>
+                        </Box>}
                     </Box>
                 </Box>
                 
