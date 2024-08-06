@@ -4,6 +4,7 @@ import { Box, Button, Checkbox, FormControlLabel, IconButton, MenuItem, TextFiel
 import Textfield from '../../components/form/Textfield';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { useRegistrationSubmit } from '../../Hooks/useRegistrationSubmit';
 
 const Registration = () => {
 
@@ -74,10 +75,81 @@ const Registration = () => {
         });
       };
 
-    const handleSubmit =(e)=>{
+      const {mutate , error , isSuccess} = useRegistrationSubmit()
+
+    const handleSubmit =async(e)=>{
         e.preventDefault()
         console.log( formData);
+        let uploadFileBase64 = null;
+        if (formData.uploadFile) {
+            uploadFileBase64 = await fileToBase64(formData.uploadFile);
+        }
+        const formattedData = {
+            arg :{
+                name : "",
+                initial_registration_answers :[
+                    {
+                        question_no:"IRQ-00001",
+                        answer: formData.panNumber
+                    },
+                    {
+                        question_no:"IRQ-00002",
+                        answer: formData.DarpanId
+                    },
+                    {
+                        question_no:"IRQ-00003",
+                        answer: formData.OrganaizationName
+                    },
+                    {
+                        question_no:"IRQ-00004",
+                        answer: formData.OrganaizationEmail
+                    },
+                    {
+                        question_no:"IRQ-00005",
+                        answer: formData.ConfirmEmail
+                    },
+                    {
+                        question_no:"IRQ-00006",
+                        answer: ""
+                    },
+                    {
+                        question_no:"IRQ-00007",
+                        answer: formData.name
+                    },
+                    {
+                        question_no:"IRQ-00008",
+                        answer: formData.designation
+                    },
+                    {
+                        question_no:"IRQ-00009",
+                        answer: formData.place
+                    },
+                    {
+                        question_no:"IRQ-00010",
+                        answer: formData.consent
+                    },
+                    {
+                        question_no:"IRQ-00011",
+                        file_name : formData.uploadFile?.name || '',
+                        attach_file:uploadFileBase64
+                    },
+                ]
+            }
+        }
+        console.log(formattedData);
         
+        
+        mutate(formattedData)
+        
+    }
+
+    const fileToBase64 = (file)=>{
+        return new Promise ((resolve ,reject) =>{
+            const reader = new FileReader()
+            reader.onloadend = ()=> resolve(reader.result.split(',')[1])
+            reader.onerror = reject
+            reader.readAsDataURL(file)
+        })
     }
   return (
     <Layout>
@@ -332,6 +404,8 @@ const Registration = () => {
                 <Box sx={{display:'flex' , justifyContent:'end' , mt:2}}>
                     <Button variant='contained' type='submit' size='small' sx={{borderRadius:6 , textTransform:'inherit' , backgroundColor:'#00447b', '&:hover': { backgroundColor: '#00447b' }}}>Save & Next</Button>
                 </Box>
+                {error && <Typography color="error">An error occurred: {error.message}</Typography>}
+                {isSuccess && <Typography color="success">Form submitted successfully!</Typography>}
             </form>
         </Box>
     </Layout>
