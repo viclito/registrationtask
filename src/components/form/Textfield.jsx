@@ -14,7 +14,7 @@ const Textfield = ({value , handleChange , name , label , helperText , width , t
             // size='small'
             sx={{fontSize:'12px' , width:width ,mb:2  ,'& .MuiOutlinedInput-input':{padding:' 12px 14px' } }}
             InputLabelProps={{
-                sx:{fontSize:'14px', color:'#1976d2' , fontWeight:500}
+                sx:{fontSize:'14px' , fontWeight:500}
             }}
             helperText={helperText}
         />

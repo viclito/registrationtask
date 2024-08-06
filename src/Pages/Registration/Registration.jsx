@@ -75,7 +75,9 @@ const Registration = () => {
       };
 
     const handleSubmit =(e)=>{
-        e.preventSefault()
+        e.preventDefault()
+        console.log( formData);
+        
     }
   return (
     <Layout>
@@ -279,14 +281,14 @@ const Registration = () => {
                             '& .MuiOutlinedInput-input':{padding:' 12px 14px'}
                             }}
                             InputLabelProps={{
-                                sx:{fontSize:'14px', color:'#1976d2' , fontWeight:500}
+                                sx:{fontSize:'14px' , fontWeight:500}
                             }}
                         >
                             <MenuItem value='Online form submitted by NPO'>Online form submitted by NPO</MenuItem>
                             <MenuItem value='Obtained via call'>Obtained via call</MenuItem>
                             <MenuItem value='Obtained via email'>Obtained via email</MenuItem>
                         </TextField>
-                        {formData.consent === 'Obtained via email' &&
+                        {formData.consent === 'Obtained via email' ?
                         <Box sx={{ borderRadius:1 , position:'relative'}} >
                             <TextField
                                 
@@ -300,11 +302,30 @@ const Registration = () => {
                             />
                                 <Box sx={{display:'flex' , justifyContent:'space-between' , alignItems:'center' , width:'100%', position:'absolute' , pointerEvents:'none' , px:2 , top:'3px'}}>
                                     <Typography variant='subtitle2' sx={{fontWeight:400 }}>Consent Obtained Proof</Typography>
-                                    <IconButton sx={{ pointerEvents:'none'}} disableRipple>
+                                    <IconButton sx={{ pointerEvents:'none' , color:'#00447b'}} disableRipple>
                                         <AttachFileIcon />
                                     </IconButton>
                                 </Box>
-                        </Box>}
+                        </Box>: <></>}
+                        {formData.consent === 'Obtained via call' ?
+                        <Box sx={{ borderRadius:1 , position:'relative'}} >
+                            <TextField
+                                
+                                name="uploadFile"
+                                
+                                onChange={handleChange}
+                                type="file"
+                                // size='small'
+                                sx={{fontSize:'12px' , width:"100%" ,mb:2  ,'& .MuiOutlinedInput-input':{padding:' 12px 14px' , opacity: 0} }}
+                                
+                            />
+                                <Box sx={{display:'flex' , justifyContent:'space-between' , alignItems:'center' , width:'100%', position:'absolute' , pointerEvents:'none' , px:2 , top:'3px'}}>
+                                    <Typography variant='subtitle2' sx={{fontWeight:400 }}>Consent Obtained Proof</Typography>
+                                    <IconButton sx={{ pointerEvents:'none' , color:'#00447b'}} disableRipple>
+                                        <AttachFileIcon />
+                                    </IconButton>
+                                </Box>
+                        </Box>: <></>}
                     </Box>
                 </Box>
                 
