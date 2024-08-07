@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material'
 import React from 'react'
 
-const Textfield = ({value , handleChange , name , label , helperText , width , type }) => {
+const Textfield = ({value , handleChange , name , label , helperText , width , type , error }) => {
   return (
     <>
         <TextField
@@ -17,6 +17,8 @@ const Textfield = ({value , handleChange , name , label , helperText , width , t
                 sx:{fontSize:'14px' , fontWeight:500}
             }}
             helperText={helperText}
+            error={error}
+            onError="required"
         />
     </>
   )
