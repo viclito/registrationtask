@@ -3,10 +3,10 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  server:{
-    proxy:{
-      // '/api':'http://guidestarindia.momsuat.com'
-    }
-  },
+  // server:{
+  //   proxy:{
+  //     '/api':'http://guidestarindia.momsuat.com'
+  //   }
+  // },
   plugins: [react()],
 })
