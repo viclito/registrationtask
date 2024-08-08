@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 
-const registerUrl = 'http://guidestarindia.momsuat.com/api/method/guidestar.api.npo_registration.make_initial_registration'
+const registerUrl = '/api/method/guidestar.api.npo_registration.make_initial_registration'
 
 const submitFormData = async(formData)=>{
     const response = await axios.post(registerUrl , {args :formData})
